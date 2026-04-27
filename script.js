@@ -49,25 +49,58 @@ const closeStoryButton = document.getElementById('closeStory');
 
 // Current active artist
 let currentArtist = null;
+let imageCache = {};
 
-// Function to change background
+// Function to preload an image
+function preloadImage(url) {
+    return new Promise((resolve, reject) => {
+        if (imageCache[url]) {
+            resolve(imageCache[url]);
+            return;
+        }
+
+        const img = new Image();
+        img.onload = () => {
+            imageCache[url] = img;
+            resolve(img);
+        };
+        img.onerror = reject;
+        img.src = url;
+    });
+}
+
+// Function to change background with smooth crossfade
 function changeBackground(artistId) {
     const photoPath = artistPhotos[artistId];
 
     // Only change if photo exists and is different from current
     if (photoPath && photoPath !== currentArtist) {
-        // Add fade out effect
-        backgroundElement.style.opacity = '0';
+        // Add loading state
+        backgroundElement.classList.add('loading');
 
-        // Change image after fade out
-        setTimeout(() => {
-            backgroundElement.style.backgroundImage = `url('${photoPath}')`;
-            backgroundElement.style.opacity = '1';
-            currentArtist = photoPath;
+        // Preload the image first
+        preloadImage(photoPath).then(() => {
+            // Fade out current image
+            backgroundElement.style.opacity = '0';
 
-            // Update active state
-            updateActiveState(artistId);
-        }, 400);
+            // Change image after fade out
+            setTimeout(() => {
+                backgroundElement.style.backgroundImage = `url('${photoPath}')`;
+                backgroundElement.classList.remove('loading');
+
+                // Fade in new image
+                setTimeout(() => {
+                    backgroundElement.style.opacity = '1';
+                    currentArtist = photoPath;
+
+                    // Update active state
+                    updateActiveState(artistId);
+                }, 50);
+            }, 600);
+        }).catch((error) => {
+            console.error('Error loading image:', error);
+            backgroundElement.classList.remove('loading');
+        });
     }
 }
 
@@ -271,15 +304,26 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
-// Preload images for smooth transitions
-function preloadImages() {
-    Object.values(artistPhotos).forEach(photoPath => {
-        if (photoPath) {
-            const img = new Image();
-            img.src = photoPath;
-        }
-    });
+// Aggressive preload all images in background
+function preloadAllImages() {
+    const photoPaths = Object.values(artistPhotos).filter(path => path !== null);
+
+    // Preload default image first (priority)
+    if (artistPhotos[defaultArtist]) {
+        preloadImage(artistPhotos[defaultArtist]).then(() => {
+            console.log('Default image loaded');
+        });
+    }
+
+    // Preload remaining images with slight delay to not block initial load
+    setTimeout(() => {
+        photoPaths.forEach(photoPath => {
+            if (photoPath !== artistPhotos[defaultArtist]) {
+                preloadImage(photoPath);
+            }
+        });
+    }, 1000);
 }
 
-// Preload all available images
-preloadImages();
+// Start preloading
+preloadAllImages();

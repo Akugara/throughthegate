@@ -43,7 +43,12 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: opacity var(--transition), transform var(--transition);
+    transition: opacity 1s ease-in-out;
+    will-change: opacity;
+}
+
+.background-image.loading {
+    opacity: 0.3;
 }
 
 .background-overlay {

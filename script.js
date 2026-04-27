@@ -186,19 +186,19 @@ function showStory(artistId) {
                 }, 600);
             }, 400);
         } else {
-            // Already in story mode, just switch the story
-            // Reset animations by removing and re-adding active class
-            storyContainerElement.classList.remove('active');
+            // Already in story mode - need to fade out old text first
+            // Fade out current text
+            storyTextElement.classList.remove('fade-in');
+            storyTextElement.style.opacity = '0';
 
+            // Wait for fade out, then change content
             setTimeout(() => {
-                storyContainerElement.classList.add('active');
+                // Update artist name
                 artistNameDisplayElement.textContent = artist.name;
 
-                // Display new story text
-                setTimeout(() => {
-                    displayStoryText(artist.story, storyTextElement);
-                }, 600);
-            }, 50);
+                // Display new story text with fade-in
+                displayStoryText(artist.story, storyTextElement);
+            }, 600); // Wait for fade out to complete
         }
     }
 }

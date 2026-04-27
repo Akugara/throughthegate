@@ -309,10 +309,11 @@ body {
     }
 
     .title {
-        font-size: clamp(2rem, 8vw, 3rem) !important;
-        letter-spacing: 0.15em;
+        font-size: clamp(1.8rem, 6.5vw, 2.8rem) !important;
+        letter-spacing: 0.12em;
         padding: 0 5%;
         box-sizing: border-box;
+        max-width: 100%;
     }
 
     .title-block {

@@ -178,13 +178,19 @@ function showStory(artistId) {
             }, 400);
         } else {
             // Already in story mode, just switch the story
-            artistNameDisplayElement.textContent = artist.name;
-            storyTextElement.innerHTML = '';
+            // Reset animations by removing and re-adding active class
+            storyContainerElement.classList.remove('active');
 
-            // Start new typewriter immediately
             setTimeout(() => {
-                typeWriter(artist.story, storyTextElement, 20);
-            }, 100);
+                storyContainerElement.classList.add('active');
+                artistNameDisplayElement.textContent = artist.name;
+                storyTextElement.innerHTML = '';
+
+                // Start new typewriter after animation
+                setTimeout(() => {
+                    typeWriter(artist.story, storyTextElement, 20);
+                }, 600);
+            }, 50);
         }
     }
 }

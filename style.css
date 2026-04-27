@@ -155,7 +155,6 @@ body {
     visibility: hidden;
     height: 0;
     overflow: hidden;
-    transform: translateY(20px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -164,7 +163,6 @@ body {
     height: auto;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
 }
 
 .artist-name-display {
@@ -174,7 +172,12 @@ body {
     margin-bottom: 3rem;
     text-transform: uppercase;
     color: var(--white);
-    opacity: 0.95;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.story-container.active .artist-name-display {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
 }
 
 .story-text-container {
@@ -182,6 +185,12 @@ body {
     max-width: 1200px;
     min-height: 400px;
     padding: 0;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.story-container.active .story-text-container {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
 }
 
 .story-text {

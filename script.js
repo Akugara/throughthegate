@@ -173,7 +173,7 @@ function showStory(artistId) {
 
                 // Start typewriter effect after a brief delay
                 setTimeout(() => {
-                    typeWriter(artist.story, storyTextElement, 20);
+                    typeWriter(artist.story, storyTextElement, 15);
                 }, 300);
             }, 400);
         } else {
@@ -188,7 +188,7 @@ function showStory(artistId) {
 
                 // Start new typewriter after animation
                 setTimeout(() => {
-                    typeWriter(artist.story, storyTextElement, 20);
+                    typeWriter(artist.story, storyTextElement, 15);
                 }, 600);
             }, 50);
         }

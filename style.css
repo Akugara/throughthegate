@@ -43,12 +43,8 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
     will-change: opacity;
-}
-
-.background-image.loading {
-    opacity: 0.3;
 }
 
 .background-overlay {
@@ -203,6 +199,11 @@ body {
     line-height: 2.2;
     letter-spacing: 0.03em;
     font-weight: 400;
+    opacity: 0;
+}
+
+.story-text.fade-in {
+    animation: fadeInText 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .story-text .paragraph-line {
@@ -215,24 +216,14 @@ body {
     display: inline;
 }
 
-.story-text .paragraph-line:last-child::after {
-    content: '|';
-    color: #1F1F1F;
-    animation: blink 1s infinite;
-    margin-left: 2px;
-}
-
-.story-text.typing-complete .paragraph-line:last-child::after {
-    content: '';
-    animation: none;
-}
-
-@keyframes blink {
-    0%, 50% {
-        opacity: 1;
-    }
-    51%, 100% {
+@keyframes fadeInText {
+    from {
         opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

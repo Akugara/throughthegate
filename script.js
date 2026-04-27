@@ -69,37 +69,35 @@ function preloadImage(url) {
     });
 }
 
-// Function to change background with smooth crossfade
+// Function to change background with smooth fade transition
 function changeBackground(artistId) {
     const photoPath = artistPhotos[artistId];
 
     // Only change if photo exists and is different from current
     if (photoPath && photoPath !== currentArtist) {
-        // Add loading state
-        backgroundElement.classList.add('loading');
-
         // Preload the image first
         preloadImage(photoPath).then(() => {
             // Fade out current image
             backgroundElement.style.opacity = '0';
 
-            // Change image after fade out
+            // Change image after fade out completes
             setTimeout(() => {
                 backgroundElement.style.backgroundImage = `url('${photoPath}')`;
-                backgroundElement.classList.remove('loading');
 
                 // Fade in new image
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     backgroundElement.style.opacity = '1';
                     currentArtist = photoPath;
 
                     // Update active state
                     updateActiveState(artistId);
-                }, 50);
-            }, 600);
+                });
+            }, 800);
         }).catch((error) => {
             console.error('Error loading image:', error);
-            backgroundElement.classList.remove('loading');
+            // Fallback: change anyway
+            backgroundElement.style.backgroundImage = `url('${photoPath}')`;
+            backgroundElement.style.opacity = '1';
         });
     }
 }
@@ -123,69 +121,39 @@ const artistsNavElement = document.getElementById('artistsNav');
 const mainTitleElement = document.getElementById('mainTitle');
 const contentElement = document.querySelector('.content');
 
-// Typewriter state
-let typewriterTimeout;
-let isTyping = false;
+// Story state
 let isStoryMode = false;
 
-// Typewriter function
-function typeWriter(text, element, speed = 30) {
+// Function to display story text with fade-in
+function displayStoryText(text, element) {
     // Split text into paragraphs
     const paragraphs = text.split('\n\n');
-    let currentParagraph = 0;
-    let currentChar = 0;
 
     element.innerHTML = '';
-    element.classList.remove('typing-complete');
-    isTyping = true;
+    element.classList.remove('fade-in');
 
-    function type() {
-        if (currentParagraph < paragraphs.length) {
-            const paragraph = paragraphs[currentParagraph];
-
-            // Create or get the current paragraph span
-            let spans = element.querySelectorAll('.paragraph-line');
-            let currentSpan = spans[currentParagraph];
-
-            if (!currentSpan) {
-                // Create new paragraph span
-                if (currentParagraph > 0) {
-                    element.appendChild(document.createElement('br'));
-                    element.appendChild(document.createElement('br'));
-                }
-                currentSpan = document.createElement('span');
-                currentSpan.className = 'paragraph-line';
-                element.appendChild(currentSpan);
-            }
-
-            // Type characters in current paragraph
-            if (currentChar < paragraph.length) {
-                currentSpan.textContent += paragraph.charAt(currentChar);
-                currentChar++;
-                typewriterTimeout = setTimeout(type, speed);
-            } else {
-                // Move to next paragraph
-                currentParagraph++;
-                currentChar = 0;
-                typewriterTimeout = setTimeout(type, speed);
-            }
-        } else {
-            isTyping = false;
-            element.classList.add('typing-complete');
+    // Create all paragraph spans at once
+    paragraphs.forEach((paragraph, index) => {
+        if (index > 0) {
+            element.appendChild(document.createElement('br'));
+            element.appendChild(document.createElement('br'));
         }
-    }
+        const span = document.createElement('span');
+        span.className = 'paragraph-line';
+        span.textContent = paragraph;
+        element.appendChild(span);
+    });
 
-    type();
+    // Trigger fade-in animation
+    setTimeout(() => {
+        element.classList.add('fade-in');
+    }, 50);
 }
 
 // Function to show artist story with animations
 function showStory(artistId) {
     const artist = artistStories[artistId];
     if (artist) {
-        // Clear any ongoing typewriter
-        clearTimeout(typewriterTimeout);
-        isTyping = false;
-
         if (!isStoryMode) {
             // First time entering story mode
             isStoryMode = true;
@@ -204,10 +172,10 @@ function showStory(artistId) {
                 storyContainerElement.classList.add('active');
                 artistNameDisplayElement.textContent = artist.name;
 
-                // Start typewriter effect after a brief delay
+                // Display story text with fade-in
                 setTimeout(() => {
-                    typeWriter(artist.story, storyTextElement, 15);
-                }, 300);
+                    displayStoryText(artist.story, storyTextElement);
+                }, 600);
             }, 400);
         } else {
             // Already in story mode, just switch the story
@@ -217,11 +185,10 @@ function showStory(artistId) {
             setTimeout(() => {
                 storyContainerElement.classList.add('active');
                 artistNameDisplayElement.textContent = artist.name;
-                storyTextElement.innerHTML = '';
 
-                // Start new typewriter after animation
+                // Display new story text
                 setTimeout(() => {
-                    typeWriter(artist.story, storyTextElement, 15);
+                    displayStoryText(artist.story, storyTextElement);
                 }, 600);
             }, 50);
         }
@@ -231,9 +198,6 @@ function showStory(artistId) {
 // Function to reset to initial state
 function resetView() {
     if (isStoryMode) {
-        // Clear any ongoing typewriter
-        clearTimeout(typewriterTimeout);
-        isTyping = false;
         isStoryMode = false;
 
         // Hide story container
@@ -251,6 +215,7 @@ function resetView() {
         // Clear story text
         setTimeout(() => {
             storyTextElement.innerHTML = '';
+            storyTextElement.classList.remove('fade-in');
             artistNameDisplayElement.textContent = '';
         }, 800);
     }

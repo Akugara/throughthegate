@@ -77,22 +77,25 @@ function changeBackground(artistId) {
     if (photoPath && photoPath !== currentArtist) {
         // Preload the image first
         preloadImage(photoPath).then(() => {
-            // Fade out current image
+            // Fade out current image smoothly
             backgroundElement.style.opacity = '0';
 
-            // Change image after fade out completes
+            // Wait for fade out to complete, then change image
             setTimeout(() => {
+                // Change the background image
                 backgroundElement.style.backgroundImage = `url('${photoPath}')`;
+                currentArtist = photoPath;
 
-                // Fade in new image
+                // Update active state
+                updateActiveState(artistId);
+
+                // Fade in new image after a brief moment
                 requestAnimationFrame(() => {
-                    backgroundElement.style.opacity = '1';
-                    currentArtist = photoPath;
-
-                    // Update active state
-                    updateActiveState(artistId);
+                    requestAnimationFrame(() => {
+                        backgroundElement.style.opacity = '1';
+                    });
                 });
-            }, 800);
+            }, 850); // Wait for fade out to complete (0.8s transition + buffer)
         }).catch((error) => {
             console.error('Error loading image:', error);
             // Fallback: change anyway
@@ -126,11 +129,15 @@ let isStoryMode = false;
 
 // Function to display story text with fade-in
 function displayStoryText(text, element) {
+    // First, ensure element is hidden
+    element.classList.remove('fade-in');
+    element.style.visibility = 'hidden';
+    element.style.opacity = '0';
+
     // Split text into paragraphs
     const paragraphs = text.split('\n\n');
 
     element.innerHTML = '';
-    element.classList.remove('fade-in');
 
     // Create all paragraph spans at once
     paragraphs.forEach((paragraph, index) => {
@@ -144,10 +151,11 @@ function displayStoryText(text, element) {
         element.appendChild(span);
     });
 
-    // Trigger fade-in animation
-    setTimeout(() => {
+    // Trigger fade-in animation after content is ready
+    requestAnimationFrame(() => {
+        element.style.visibility = 'visible';
         element.classList.add('fade-in');
-    }, 50);
+    });
 }
 
 // Function to show artist story with animations

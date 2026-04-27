@@ -60,6 +60,7 @@ body {
         rgba(0, 0, 0, 0.7) 100%
     );
     z-index: 1;
+    pointer-events: none;
 }
 
 /* Content */
@@ -187,10 +188,12 @@ body {
     min-height: 400px;
     padding: 0;
     opacity: 0;
+    visibility: hidden;
     transform: translateY(20px);
 }
 
 .story-container.active .story-text-container {
+    visibility: visible;
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
 }
 
@@ -200,9 +203,11 @@ body {
     letter-spacing: 0.03em;
     font-weight: 400;
     opacity: 0;
+    visibility: hidden;
 }
 
 .story-text.fade-in {
+    visibility: visible;
     animation: fadeInText 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 

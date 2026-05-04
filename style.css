@@ -296,6 +296,23 @@ body {
     width: 100%;
 }
 
+.nav-divider {
+    width: 1px;
+    height: 1em;
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.about-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.about-link:hover {
+    color: var(--white);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     body {

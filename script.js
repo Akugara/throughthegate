@@ -16,7 +16,7 @@ const artistStories = {
     },
     alejandroramirez: {
         name: 'Alejandro Ramirez',
-        story: 'Alejandro Ramirez (he/him) is a photographer born in Guadalajara, Mexico and has been living in Helsinki since 2019.\n\nIn his work, he tries to document life in a way that it provokes feelings. Even in the most ordinary of settings, when removing the person as subject, invite the viewer to become the subject themselves and feel the scene as if it\'s their own.'
+        story: 'Alejandro Ramirez Perez (he/him) (b. 1996 Mexico) is a photographer living and working in Helsinki, Finland since 2019. \n Ramirez explores the spaces we occupy with and how they relate to the emotions they evoke. Often using symmetrical compositions and ample negative space, the works of Ramirez invite the viewer to be transported to the scene and fill in the missing pieces, not with pictures or ideas, but by listening to one’s feelings and embracing them as a fundamental part of the experience.\n\nIn his work, he tries to document life in a way in which it allows the viewer to immerse themselves in the moment and feel the subtlety of what’s happening in the picture, even in the most seemingly ordinary of settings.\n\nAs a photographer, Ramirez has also worked with numerous artists and festivals in Finland helping them create a strong visual identity and document the events with an artistic perspective.'
     },
     robertopuentes: {
         name: 'Roberto Puentes',
@@ -38,6 +38,10 @@ const artistStories = {
 
 // Default photo to show on page load
 const defaultArtist = 'herachoi';
+
+const artistClaim ='Through The Gate takes the viewer on a journey exploring life through four moments: Dawn, Movement, Contemplation, and Dream. Each of these moments mirror an aspect of our lives, reminiscing of the different moments of the day, and invites the viewer to experience the intimate emotions of remembering, of life as it lingers within us. \n\nThe exhibition shows the work of six different photographers who, through their own perspective, open the gate that vulnerability represents and invite the viewer to look inwards. We don’t tend to think that contradicting emotions can coexist simultaneously. On Through The Gate, the artists present fragments of life that blur the line between joy and sorrow, motion and stillness, presence and awayness.\n\nThe works presented explore the depth of memory and the delicate line between being present and becoming something that slowly fades. How does one stay present when memories linger and dreams of the future pull us forward?';
+const artistList =['Agustin Garagorry','Alejandro Ramirez','Hera Choi', 'Hieu Vo', 'Roberto Puentes','Vertti Louma']
+const artistCollaborators = 'Audio fragments by Anna Brear & Illari Heinilä'
 
 // Get elements
 const backgroundElement = document.getElementById('background');

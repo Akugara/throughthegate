@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/audio-fragments", "destination": "/audio-fragments.html" }
+  ]
+}

@@ -23,7 +23,7 @@
             z-index: 2;
             max-width: 720px;
             margin: 0 auto;
-            padding: 5rem 2rem 8rem;
+            padding: 6rem 2rem 8rem;
             display: flex;
             flex-direction: column;
             gap: 5rem;
@@ -124,6 +124,161 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .collab-bios {
+            display: flex;
+            flex-direction: column;
+            gap: 2.8rem;
+            margin-top: 2rem;
+        }
+
+        .collab-bio-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 1.6vw, 1.25rem);
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0.9rem;
+        }
+
+        .collab-bio-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+            font-weight: 300;
+            line-height: 1.95;
+            letter-spacing: 0.03em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .collab-bio-text + .collab-bio-text {
+            margin-top: 0.8em;
+        }
+
+        .collab-duo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.95;
+            letter-spacing: 0.03em;
+            color: rgba(255, 255, 255, 0.7);
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .video-hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .video-hero video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            color: rgba(255, 255, 255, 0.45);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            animation: fadeUpDown 2.4s ease-in-out infinite;
+        }
+
+        .scroll-hint::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 1rem;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeUpDown {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.9; transform: translateX(-50%) translateY(6px); }
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .mute-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.7);
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .mute-btn:hover {
+            border-color: rgba(255, 255, 255, 0.65);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .mute-btn svg {
+            width: 0.9rem;
+            height: 0.9rem;
+        }
+
+        .mute-btn .icon-muted { display: block; }
+        .mute-btn .icon-sound { display: none; }
+        .mute-btn.unmuted .icon-muted { display: none; }
+        .mute-btn.unmuted .icon-sound { display: block; }
+
+        .volume-track {
+            width: 5rem;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s ease;
+        }
+
+        .volume-track:hover {
+            height: 2px;
+        }
+
+        .volume-fill {
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            width: 0%;
+            pointer-events: none;
+            transition: width 0.05s linear;
+        }
+
+        .volume-track:hover .volume-fill {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
         @media (max-width: 768px) {
             .about-back {
                 top: 1.5rem;
@@ -144,6 +299,30 @@
 <body>
     <a href="index.html" class="about-back">← Back</a>
 
+    <section class="video-hero">
+        <video id="heroVideo" autoplay muted loop playsinline>
+            <source src="Videos/throughthegate.mp4" type="video/mp4">
+        </video>
+        <div class="video-controls">
+            <div class="volume-track" id="volumeTrack">
+                <div class="volume-fill" id="volumeFill"></div>
+            </div>
+            <button class="mute-btn" id="muteBtn" aria-label="Unmute">
+                <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <line x1="23" y1="9" x2="17" y2="15"/>
+                    <line x1="17" y1="9" x2="23" y2="15"/>
+                </svg>
+                <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                </svg>
+            </button>
+        </div>
+        <span class="scroll-hint">Scroll</span>
+    </section>
+
     <main class="about-page">
 
         <div class="about-header">
@@ -161,14 +340,43 @@
 
         <div>
             <p class="section-label">Artists</p>
-            <ul class="artist-list">
-                <li>Agustín Garagorry</li>
-                <li>Alejandro Ramirez</li>
-                <li>Hera Choi</li>
-                <li>Hieu Vo</li>
-                <li>Roberto Puentes</li>
-                <li>Vertti Luoma</li>
-            </ul>
+            <div class="collab-bios">
+                <div>
+                    <p class="collab-bio-name">Agustín Garagorry</p>
+                    <p class="collab-bio-text">Born on April 8, 1994, in Montevideo, Uruguay, Agustín is a photographer and visual storyteller currently based in Finland. His work is rooted in documentary practice, blending narrative depth with a spontaneous, human-centered approach shaped by real-life experience.</p>
+                    <p class="collab-bio-text">With over a decade of experience behind the camera, he is the founder of Abstrakti.eu, a creative studio dedicated to elevating the visual communication of local businesses through thoughtful and engaging storytelling. Agustín approaches each project without a fixed formula. He believes every story demands its own language, and he invests time in building genuine connections with his subjects. This immersive process allows him to uncover nuanced perspectives and create work that feels both authentic and deeply personal.</p>
+                </div>
+
+                <div>
+                    <p class="collab-bio-name">Alejandro Ramirez</p>
+                    <p class="collab-bio-text">Alejandro Ramirez (he/him) is a photographer born in Guadalajara, Mexico and has been living in Helsinki since 2019.</p>
+                    <p class="collab-bio-text">In his work, he tries to document life in a way that it provokes feelings. Even in the most ordinary of settings, when removing the person as subject, he invites the viewer to become the subject themselves and feel the scene as if it's their own.</p>
+                </div>
+
+                <div>
+                    <p class="collab-bio-name">Hera Choi</p>
+                    <p class="collab-bio-text">Hera Choi is a photographer originally from Seoul, South Korea, and currently based in Helsinki, Finland. Her work revolves around human presence, an ongoing exploration of what it means to be human and how we connect with one another.</p>
+                    <p class="collab-bio-text">She uses photography as a way to navigate her own presence in the world, creating images that feel close, intimate, and deeply human. Her upbringing and professional experience have shaped a strong sensitivity to timing, atmosphere, and subtle gesture. Drawn to the vulnerability of being human, she focuses on fleeting expressions and quiet encounters that reveal the emotional movement beneath everyday life.</p>
+                </div>
+
+                <div>
+                    <p class="collab-bio-name">Hieu Vo</p>
+                    <p class="collab-bio-text">Hieu Vo (they/them) is a fine art and portrait photographer based in Helsinki. Their works explore the temporality of life and its multiple facets, reflecting through human connections, in relation to one another as well as to the collective nature. With an emphasis on repeating of subject elements and movements, using different in-camera techniques, Hieu discovers the unseen world of longings and understanding. Much like how one sees the world and how the camera sees it, realities and meanings can vastly differ from one person to another.</p>
+                    <p class="collab-bio-text">Hieu Vo also works in ceramics. Functional forms and unique patterns that reflect the beauties of nature are their main inspiration.</p>
+                </div>
+
+                <div>
+                    <p class="collab-bio-name">Roberto Puentes</p>
+                    <p class="collab-bio-text">Roberto Puentes (b. 3 April 1991, Nayarit, Mexico) is a Mexican-born and Helsinki-based creative working across still and moving picture.</p>
+                    <p class="collab-bio-text">His practice explores space, human connection, color, and the subtle narratives that shape everyday life. Although his work is entirely digital, Roberto's visual language is strongly influenced by a sense of nostalgia and a deep appreciation for film aesthetics, which shape his creative process and artistic choices. He continues to develop, work on, and collaborate on projects that bridge his cultural background with his experiences in the Nordic region, bringing together two worlds through a distinctly intimate, documentary approach.</p>
+                </div>
+
+                <div>
+                    <p class="collab-bio-name">Vertti Luoma</p>
+                    <p class="collab-bio-text">Vertti Luoma is a Helsinki-based visual photographer and cinematographer whose practice explores perception, presence, and the subtle emotional weight of everyday moments. Driven by curiosity toward the constantly evolving visual environment, he approaches photography as a tool for exploration — a way of observing how meaning emerges through light, movement, subject, and detail.</p>
+                    <p class="collab-bio-text">His work is grounded in careful observation of atmosphere and visual rhythm. Rather than documenting events, Luoma is interested in the moments that exist in between: fleeting gestures, transitional states, and situations where stillness and motion coexist simultaneously. Through a meticulous and detail-oriented process, he creates images that invite the viewer to linger and interpret. Luoma's artistic practice reflects an ongoing pursuit of visual significance — creating images that feel both personal and shared.</p>
+                </div>
+            </div>
         </div>
 
         <div class="divider"></div>
@@ -176,6 +384,22 @@
         <div>
             <p class="section-label">Collaborators</p>
             <p class="collaborators-text">Audio fragments by Anna Brear &amp; Ilari Heinilä</p>
+
+            <div class="collab-bios">
+                <div>
+                    <p class="collab-bio-name">Anna Brear</p>
+                    <p class="collab-bio-text">Anna Brear is a writer of poetry with a background in literature and social work, and with a special interest in the combination of spoken word and sound design. Her previously published works in the realm of poetry and sound include the album <em>They Shiver on a Spring Evening</em>, co-created with Uniluoto. She also co-produces the film festival Sensommar Filmfest.</p>
+                    <p class="collab-bio-text">Anna attempts to be guided by curiosity, compassion and the principles of interbeing and loves the archipelago and anything fermented.</p>
+                </div>
+
+                <div>
+                    <p class="collab-bio-name">Ilari Heinilä</p>
+                    <p class="collab-bio-text">Blending the rebellious spirit of DIY punk rock with the atmospheric allure of electronica, Ilari Heinilä is a musical artisan whose sound defies conventions. His recent compositional works include the feature film <em>Sebastian</em>, which premiered at the 2024 Sundance Film Festival, and has received significant recognition, including nominations for the prestigious HARPA Nordic Film Composer Award and the Best Music Jussi Award.</p>
+                    <p class="collab-bio-text">Beyond music and sound, Ilari's passions also include tattoos and sailing.</p>
+                </div>
+
+                <p class="collab-duo-text">Anna &amp; Ilari's collaborative journey began in late 2025, starting with a shared interest for an aural expression which is alive, emotive and honest. <em>Audio fragments</em> is a journey through five movements, composed through a thematically driven, cyclical and emergent creative process in which soundscapes meet writing and voice to layer, unfold, and reveal a new whole; moving through the realms of earth, space and body it's a study of the eternal and ephemeral, the sacred and temporal, the embodied and immaterial. Movement, change and loss emerge as teachers of presence, aliveness and care.</p>
+            </div>
         </div>
 
         <div class="divider"></div>
@@ -186,5 +410,31 @@
         </div>
 
     </main>
+    <script>
+        const video = document.getElementById('heroVideo');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeTrack = document.getElementById('volumeTrack');
+        const volumeFill = document.getElementById('volumeFill');
+
+        let lastVolume = 1;
+
+        function setVolume(v) {
+            video.volume = v;
+            video.muted = v === 0;
+            volumeFill.style.width = (v * 100) + '%';
+            muteBtn.classList.toggle('unmuted', v > 0);
+            muteBtn.setAttribute('aria-label', v > 0 ? 'Mute' : 'Unmute');
+            if (v > 0) lastVolume = v;
+        }
+
+        muteBtn.addEventListener('click', () => {
+            setVolume(video.muted ? lastVolume : 0);
+        });
+
+        volumeTrack.addEventListener('click', (e) => {
+            const rect = volumeTrack.getBoundingClientRect();
+            setVolume(Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)));
+        });
+    </script>
 </body>
 </html>

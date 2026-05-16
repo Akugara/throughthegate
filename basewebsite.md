@@ -24,3 +24,16 @@ Hieu Vo also works in ceramics. Functional forms and unique patterns that reflec
 Vertti Luoma is a Helsinki-based visual photographer and cinematographer whose practice explores perception, presence, and the subtle emotional weight of everyday moments. Driven by curiosity toward the constantly evolving visual environment, he approaches photography as a tool for exploration — a way of observing how meaning emerges through light, movement, subject, and detail.
 
 His work is grounded in careful observation of atmosphere and visual rhythm. Rather than documenting events, Luoma is interested in the moments that exist in between: fleeting gestures, transitional states, and situations where stillness and motion coexist simultaneously. Through a meticulous and detail-oriented process, he creates images that invite the viewer to linger and interpret. Luoma’s artistic practice reflects an ongoing pursuit of visual significance — creating images that feel both personal and shared. Through a balance of intuition and deliberate visual control, he strives to create balanced works that are simultaneously technically demanding, interpretatively open, and visually considered.
+
+
+
+
+Anna Brear & Ilari Heinilä: Audio fragments
+
+Anna Brear is a writer of poetry with a background in literature and social work, and with a special interest in the combination of spoken word and sound design. Her previously published works in the realm of poetry and sound include the album They Shiver on a Spring Evening, co-created with Uniluoto. She also co-produces the film festival Sensommar Filmfest. Anna attempts to be guided by curiosity, compassion and the principles of interbeing and loves the archipelago and anything fermented.
+
+Blending the rebellious spirit of DIY punk rock with the atmospheric allure of electronica, Ilari Heinilä is a musical artisan whose sound defies conventions. His recent compositional works include the feature film Sebastian, which premiered at the 2024 Sundance Film Festival, and has received significant recognition, including nominations for the prestigious HARPA Nordic Film Composer Award and the Best Music Jussi Award. Beyond music and sound, Ilari’s passions also include tattoos and sailing.
+
+Anna & Ilari’s collaborative journey began in late 2025, starting with a shared interest for an aural expression which is alive, emotive and honest. Audio fragments is a journey through five movements, composed through a thematically driven, cyclical and emergent creative process in which soundscapes meet writing and voice to layer, unfold, and reveal a new whole; moving through the realms of earth, space and body it’s a study of the eternal and ephemeral, the sacred and temporal, the embodied and immaterial. Movement, change and loss emerge as teachers of presence, aliveness and care.
+
+The duo is currently working on a collaborative album.
